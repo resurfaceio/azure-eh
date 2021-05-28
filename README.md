@@ -28,7 +28,7 @@ make stop      # halt and remove containers
 
 - Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/logger-azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/logger-azure-eh/blob/master/policy.xml).
 
-- Set following the environment variables to their corresponding values:
+- Set following the environment variables in the [`.env`](https://github.com/resurfaceio/test-azure-eh/blob/master/.env) file to their corresponding values:
 
 | Variable                   | Set to                                                                                                                                          |
 |:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
