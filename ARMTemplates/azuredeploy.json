@@ -30,7 +30,7 @@
       },
       "resurfaceURL": {
         "type": "string",
-        "defaultValue": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
+        "defaultValue": "http://resurface:4001/message"
       },
       "resurfaceRules": {
         "type": "string",
@@ -87,7 +87,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[parameters('resurfaceURL')]"
+                    "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
