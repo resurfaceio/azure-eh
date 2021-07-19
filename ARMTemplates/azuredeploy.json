@@ -87,7 +87,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
+                    "value": "[reference(parameters('containerGroupName')).ipAddress.ip]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
