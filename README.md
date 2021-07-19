@@ -13,6 +13,10 @@ Example Resurface logger for Azure Event Hubs
 * 4001 - Resurface microservice
 * 4000 - Trino database UI
 
+## Deploy to Azure
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Ftest-azure-eh%2Fmaster%2FARMTemplates%2Fazuredeploy.json)
+
 ## Deploy Locally
 
 ```
