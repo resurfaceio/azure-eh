@@ -87,7 +87,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[reference(parameters('containerGroupName')).ipAddress.ip]"
+                    "value": "[parameters('resurfaceURL')]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
@@ -119,6 +119,7 @@
           "osType": "Linux",
           "ipAddress": {
             "type": "Public",
+            "dnsNameLabel": "resurface",
             "ports": [
               {
                 "protocol": "tcp",
