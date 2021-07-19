@@ -1,0 +1,146 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "containerGroupName": {
+        "type": "string",
+        "defaultValue": "myContainerGroup",
+        "metadata": {
+          "description": "Container Group name."
+        }
+      },
+      "imageRegistryLoginServer": {
+          "type": "string"
+      },
+      "imageRegistryUsername": {
+          "type": "string"
+      },
+      "imageRegistryPassword": {
+          "type": "string"
+      },
+      "connString": {
+        "type": "string"
+      },
+      "partNumber": {
+        "type": "string",
+        "defaultValue": "0"
+      },
+      "nameEH": {
+        "type": "string"
+      },
+      "rsfURL": {
+        "type": "string",
+        "defaultValue": "http://resurface:4001/message"
+      },
+      "rsfRules": {
+        "type": "string",
+        "defaultValue": "include debug"
+      }
+    },
+    "variables": {
+      "container1name": "resurface",
+      "container1image": "resurfaceio/resurface:2.3.1",
+      "container2name": "test-azure-eh",
+      "container2image": "testrsfacr.azurecr.io/test-azure-eh:v1"
+    },
+    "resources": [
+      {
+        "name": "[parameters('containerGroupName')]",
+        "type": "Microsoft.ContainerInstance/containerGroups",
+        "apiVersion": "2019-12-01",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "containers": [
+            {
+              "name": "[variables('container1name')]",
+              "properties": {
+                "image": "[variables('container1image')]",
+                "resources": {
+                  "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 1.5
+                  }
+                },
+                "ports": [
+                  {
+                    "port": 4000
+                  },
+                  {
+                    "port": 4001
+                  },
+                  {
+                    "port": 4002
+                  }
+                ]
+              }
+            },
+            {
+              "name": "[variables('container2name')]",
+              "properties": {
+                "image": "[variables('container2image')]",
+                "resources": {
+                  "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 1.5
+                  }
+                },
+                "environmentVariables": [
+                  {
+                    "name": "USAGE_LOGGERS_URL",
+                    "value": "[parameters('rsfURL')]"
+                  },
+                  {
+                    "name": "USAGE_LOGGERS_RULES",
+                    "value": "[parameters('rsfRules')]"
+                  },
+                  {
+                    "name": "AZURE_EH_CONNECTION_STRING",
+                    "value": "[parameters('connString')]"
+                  },
+                  {
+                    "name": "PARTITION_NUMBER",
+                    "value": "[parameters('partNumber')]"
+                  },
+                  {
+                    "name": "EVENT_HUB_NAME",
+                    "value": "[parameters('nameEH')]"
+                  }
+                ]
+              }
+            }
+          ],
+          "imageRegistryCredentials": [
+            {
+                "server": "[parameters('imageRegistryLoginServer')]",
+                "username": "[parameters('imageRegistryUsername')]",
+                "password": "[parameters('imageRegistryPassword')]"
+            }
+          ],
+          "osType": "Linux",
+          "ipAddress": {
+            "type": "Public",
+            "ports": [
+              {
+                "protocol": "tcp",
+                "port": 4000
+              },
+              {
+                "protocol": "tcp",
+                "port": 4001
+              },
+              {
+                "protocol": "tcp",
+                "port": 4002
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "outputs": {
+      "containerIPv4Address": {
+        "type": "string",
+        "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('containerGroupName'))).ipAddress.ip]"
+      }
+    }
+  }
