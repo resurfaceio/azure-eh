@@ -30,7 +30,7 @@
       },
       "resurfaceURL": {
         "type": "string",
-        "defaultValue": "http://resurface:4001/message"
+        "defaultValue": "http://resurface.eastus.azurecontainer.io:4001/message"
       },
       "resurfaceRules": {
         "type": "string",
