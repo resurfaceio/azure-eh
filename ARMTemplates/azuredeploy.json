@@ -4,7 +4,7 @@
     "parameters": {
       "containerGroupName": {
         "type": "string",
-        "defaultValue": "ResurfaceContainerGroup",
+        "defaultValue": "ResurfaceIO",
         "metadata": {
           "description": "Container Group name."
         }
