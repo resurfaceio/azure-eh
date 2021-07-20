@@ -95,7 +95,7 @@
                   },
                   {
                     "name": "AZURE_EH_CONNECTION_STRING",
-                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'/RootManageSharedAccessKey'),'2021-01-01-preview').primaryConnectionString]"
+                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'RootManageSharedAccessKey'),'2021-01-01-preview').primaryConnectionString]"
                   },
                   {
                     "name": "PARTITION_NUMBER",
