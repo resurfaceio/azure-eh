@@ -18,15 +18,15 @@
       "imageRegistryPassword": {
           "type": "string"
       },
-      "connectionString": {
+      "eventHubNamespace": {
+        "type": "string"
+      },
+      "eventHubInstanceName": {
         "type": "string"
       },
       "partitionNumber": {
         "type": "string",
         "defaultValue": "0"
-      },
-      "eventHubInstanceName": {
-        "type": "string"
       },
       "resurfaceURL": {
         "type": "string",
@@ -95,7 +95,7 @@
                   },
                   {
                     "name": "AZURE_EH_CONNECTION_STRING",
-                    "value": "[parameters('connectionString')]"
+                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
                   },
                   {
                     "name": "PARTITION_NUMBER",
