@@ -1,5 +1,5 @@
-# resurfaceio-logger-azure-eh
-Example Resurface logger for Azure Event Hubs
+# azure-eh
+Easily log API requests and responses to your own [system of record](https://resurface.io/).
 
 ## Requirements
 
