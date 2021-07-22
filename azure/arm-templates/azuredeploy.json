@@ -28,20 +28,16 @@
         "type": "string",
         "defaultValue": "0"
       },
-      "resurfaceURL": {
-        "type": "string",
-        "defaultValue": "[concat('http://', variables('container1name'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
-      },
       "resurfaceRules": {
         "type": "string",
-        "defaultValue": "include debug"
+        "defaultValue": "include default"
       }
     },
     "variables": {
       "container1name": "resurface",
       "container1image": "resurfaceio/resurface:2.3.1",
-      "container2name": "test-azure-eh",
-      "container2image": "testrsfacr.azurecr.io/test-azure-eh:v1"
+      "container2name": "slim-azure-eh",
+      "container2image": "testrsfacr.azurecr.io/slim-azure-eh:v1"
     },
     "resources": [
       {
@@ -87,7 +83,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[parameters('resurfaceURL')]"
+                    "value": "[concat('http://', variables('container1name'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
