@@ -30,7 +30,7 @@
       },
       "resurfaceURL": {
         "type": "string",
-        "defaultValue": "http://resurface.eastus.azurecontainer.io:4001/message"
+        "defaultValue": "[concat('http://', variables('container1name'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
       },
       "resurfaceRules": {
         "type": "string",
@@ -119,7 +119,7 @@
           "osType": "Linux",
           "ipAddress": {
             "type": "Public",
-            "dnsNameLabel": "resurface",
+            "dnsNameLabel": "[variables('container1name')]",
             "ports": [
               {
                 "protocol": "tcp",
