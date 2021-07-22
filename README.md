@@ -15,7 +15,7 @@ Easily log API requests and responses to your own [system of record](https://res
 
 ## Deploy to Azure
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2FARMTemplates%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2Fazure%2Farm-templates%2Fazuredeploy.json)
 
 ## Deploy Locally
 
