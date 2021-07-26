@@ -12,17 +12,18 @@
       "eventHubsSku": {
         "type": "string",
         "allowedValues": [ "Basic", "Standard" ],
-        "defaultValue": "Standard",
+        "defaultValue": "Basic",
         "metadata": {
           "description": "The messaging tier for service Bus namespace"
         }
       },
       "skuCapacity": {
         "type": "int",
-        "allowedValues": [ 1, 2, 4 ],
+        "minValue": 1,
+        "maxValue": 20,
         "defaultValue": 1,
         "metadata": {
-          "description": "MessagingUnits for premium namespace"
+          "description": "Throughput Units for given namespace"
         }
       },
       "eventHubsInstanceName": {
