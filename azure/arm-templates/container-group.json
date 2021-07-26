@@ -9,15 +9,6 @@
           "description": "Group for Resurface containers."
         }
       },
-      "imageRegistryLoginServer": {
-          "type": "string"
-      },
-      "imageRegistryUsername": {
-          "type": "string"
-      },
-      "imageRegistryPassword": {
-          "type": "string"
-      },
       "eventHubNamespace": {
         "type": "string"
       },
@@ -37,7 +28,7 @@
       "container1name": "resurface",
       "container1image": "resurfaceio/resurface:2.3.1",
       "container2name": "slim-azure-eh",
-      "container2image": "testrsfacr.azurecr.io/slim-azure-eh:v1"
+      "container2image": "monramon/slim-azure-eh:1"
     },
     "resources": [
       {
@@ -103,13 +94,6 @@
                   }
                 ]
               }
-            }
-          ],
-          "imageRegistryCredentials": [
-            {
-                "server": "[parameters('imageRegistryLoginServer')]",
-                "username": "[parameters('imageRegistryUsername')]",
-                "password": "[parameters('imageRegistryPassword')]"
             }
           ],
           "osType": "Linux",
