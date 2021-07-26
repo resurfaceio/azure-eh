@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "eventHubsNamespace": {
+        "type": "string",
+        "defaultValue": "ResurfaceEH",
+        "metadata": {
+          "description": "Name of EventHubs namespace"
+        }
+      },
+      "eventHubsSku": {
+        "type": "string",
+        "allowedValues": [ "Basic", "Standard" ],
+        "defaultValue": "Standard",
+        "metadata": {
+          "description": "The messaging tier for service Bus namespace"
+        }
+      },
+      "skuCapacity": {
+        "type": "int",
+        "allowedValues": [ 1, 2, 4 ],
+        "defaultValue": 1,
+        "metadata": {
+          "description": "MessagingUnits for premium namespace"
+        }
+      },
+      "eventHubsInstanceName": {
+        "type": "string",
+        "defaultValue": "USAGE_LOGGERS_EH",
+        "metadata": {
+          "description": "Name of the EventHubs instance"
+        }
+      }
+    },
+    "resources": [
+      {
+        "name": "[parameters('eventHubsNamespace')]",
+        "type": "Microsoft.EventHub/namespaces",
+        "apiVersion": "2017-04-01",
+        "location": "[resourceGroup().location]",
+        "sku": {
+          "name": "[parameters('eventHubsSku')]",
+          "tier": "[parameters('eventHubsSku')]",
+          "capacity": "[parameters('skuCapacity')]"
+        },
+        "properties": {},
+        "resources": [
+          {
+            "apiVersion": "2017-04-01",
+            "name": "[parameters('eventHubsInstanceName')]",
+            "type": "eventhubs",
+            "dependsOn": [
+              "[resourceId('Microsoft.EventHub/namespaces/', parameters('eventHubsNamespace'))]"
+            ],
+            "properties": {},
+            "resources": []
+          }
+        ]
+      }
+    ],
+    "outputs": {
+    }
+  }

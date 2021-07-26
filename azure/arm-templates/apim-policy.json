@@ -9,8 +9,12 @@
           "description": "Azure APIM Logger service Policy with an Azure Event Hub as log destination."
         }
       },
-      "loggerID": {
+      "apiManagementServiceName": {
         "type": "string"
+      },
+      "loggerID": {
+        "type": "string",
+        "defaultValue": "ResurfaceLogger"
       },
       "partitionNumber": {
         "type": "string",
@@ -22,6 +26,9 @@
         "name": "[parameters('policyName')]",
         "type": "Microsoft.ApiManagement/service/apis/policies",
         "apiVersion": "2019-12-01",
+        "dependsOn": [
+          "[concat('Microsoft.ApiManagement/service/', parameters('apiManagementServiceName'))]"
+        ],
         "properties": {
           "value": "[concat('<policies>
     <inbound>
