@@ -14,14 +14,44 @@
       },
       "loggerID": {
         "type": "string",
-        "defaultValue": "ResurfaceLogger"
+        "defaultValue": "ResurfaceLogger",
+        "metadata": {
+          "description": "Identifier for the Azure APIM Logger service"
+        }
+      },
+      "eventHubNamespace": {
+        "type": "string",
+        "defaultValue": "ResurfaceEH"
+      },
+      "eventHubInstanceName": {
+        "type": "string",
+        "defaultValue": "usage_loggers_eh"
       },
       "partitionNumber": {
         "type": "string",
-        "defaultValue": "0"
+        "defaultValue": "0",
+        "metadata": {
+          "description": "EventHubs partition"
+        }
       }
     },
     "resources": [
+      {
+        "apiVersion": "2017-03-01",
+        "type": "Microsoft.ApiManagement/service/loggers",
+        "name": "[parameters('loggerID')]",
+        "dependsOn": [
+          "[concat('Microsoft.ApiManagement/service/', parameters('apiManagementServiceName'))]"
+        ],
+        "properties": {
+          "loggerType": "azureEventHub",
+          "description": "Resurface Logger",
+          "credentials": {
+            "name": "[parameters('eventHubInstanceName')]",
+            "connectionString": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
+          }
+        }
+      },
       {
         "name": "[parameters('policyName')]",
         "type": "Microsoft.ApiManagement/service/apis/policies",
