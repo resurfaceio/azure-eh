@@ -15,9 +15,13 @@ Easily log API requests and responses to your own [system of record](https://res
 
 ## Deploy to Azure
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2Fazure%2Farm-templates%2Fazuredeploy.json)
+Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2Fazure%2Farm-templates%2Fcontainer-group.json)
 
 ## Deploy Locally
+
+Clone this repository to run the containers as an on-prem solution
 
 ```
 make start     # rebuild and start containers
@@ -30,9 +34,9 @@ make stop      # halt and remove containers
 
 ## Logging From Azure Event Hubs
 
-- Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/logger-azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/logger-azure-eh/blob/master/policy.xml).
+- Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml).
 
-- Set following the environment variables in the [`.env`](https://github.com/resurfaceio/test-azure-eh/blob/master/.env) file to their corresponding values:
+- Set following the environment variables in the [`.env`](https://github.com/resurfaceio/azure-eh/blob/master/.env) file to their corresponding values:
 
 | Variable                   | Set to                                                                                                                                          |
 |:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -40,7 +44,7 @@ make stop      # halt and remove containers
 |`PARTITION_NUMBER`          |Partition number configured in `policy.xml`. Should be `"0"` by default                                                                          |
 |`EVENT_HUB_NAME`            |Name of your Event Hub instance                                                                                                                  |
 |`EVENT_HUB_CONSUMER_GROUP`  |(**Optional**) Name of a consumer group from your Event Hub.<br />Only necessary if you have created a specific consumer group for your Event Hub instance                                                    |
-|`USAGE_LOGGERS_URL`          |(**Optional**) Resurface database connection URL.<br />Only necessary if your [Resurface instance](https://resurface.io/pilot-installation) uses a different connection URL than the one provided by default   |
+|`USAGE_LOGGERS_URL`          |(**Optional**) Resurface database connection URL.<br />Only necessary if your [Resurface instance](https://resurface.io/installation) uses a different connection URL than the one provided by default   |
 |`USAGE_LOGGERS_RULES`        |(**Optional**) Set of [rules](#protecting-user-privacy).<br />Only necessary if you want to exclude certain API calls from being logged.         |
 
 - Use your API as you always do. Enjoy! 
