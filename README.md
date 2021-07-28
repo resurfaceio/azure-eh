@@ -36,7 +36,7 @@ make stop      # halt and remove containers
 
 - Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml).
 
-- Set following the environment variables in the [`.env`](https://github.com/resurfaceio/azure-eh/blob/master/.env) file to their corresponding values:
+- If you are running the containers locally, you need to set following the environment variables in the [`.env`](https://github.com/resurfaceio/azure-eh/blob/master/.env) file to their corresponding values before doing `make start`:
 
 | Variable                   | Set to                                                                                                                                          |
 |:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
