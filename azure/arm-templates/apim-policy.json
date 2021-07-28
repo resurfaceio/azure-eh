@@ -2,13 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "policyName": {
-        "type": "string",
-        "defaultValue": "ResurfacePolicy",
-        "metadata": {
-          "description": "Azure APIM Logger service Policy with an Azure Event Hub as log destination."
-        }
-      },
       "apiManagementServiceName": {
         "type": "string"
       },
@@ -19,13 +12,13 @@
           "description": "Identifier for the Azure APIM Logger service"
         }
       },
-      "eventHubNamespace": {
+      "eventHubNamespaceName": {
         "type": "string",
         "defaultValue": "ResurfaceEH"
       },
       "eventHubInstanceName": {
         "type": "string",
-        "defaultValue": "usage_loggers_eh"
+        "defaultValue": "ResurfaceLoggingEH"
       },
       "partitionNumber": {
         "type": "string",
@@ -45,7 +38,7 @@
           "description": "Resurface Logger",
           "credentials": {
             "name": "[parameters('eventHubInstanceName')]",
-            "connectionString": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
+            "connectionString": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
           }
         }
       },

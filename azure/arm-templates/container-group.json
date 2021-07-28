@@ -9,7 +9,7 @@
           "description": "Group for Resurface containers."
         }
       },
-      "eventHubNamespace": {
+      "eventHubNamespaceName": {
         "type": "string"
       },
       "eventHubInstanceName": {
@@ -28,13 +28,14 @@
       "container1name": "resurface",
       "container1image": "resurfaceio/resurface:2.3.1",
       "container2name": "slim-azure-eh",
-      "container2image": "monramon/slim-azure-eh:1"
+      "container2image": "monramon/slim-azure-eh:1",
+      "label": "[concat(variables('container1name'), '-' , resourceGroup().name)]"
     },
     "resources": [
       {
-        "name": "[parameters('containerGroupName')]",
-        "type": "Microsoft.ContainerInstance/containerGroups",
         "apiVersion": "2019-12-01",
+        "type": "Microsoft.ContainerInstance/containerGroups",
+        "name": "[parameters('containerGroupName')]",
         "location": "[resourceGroup().location]",
         "properties": {
           "containers": [
@@ -74,7 +75,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[concat('http://', variables('container1name'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
+                    "value": "[concat('http://', variables('label'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
@@ -82,7 +83,7 @@
                   },
                   {
                     "name": "AZURE_EH_CONNECTION_STRING",
-                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespace'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
+                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
                   },
                   {
                     "name": "PARTITION_NUMBER",
@@ -99,7 +100,7 @@
           "osType": "Linux",
           "ipAddress": {
             "type": "Public",
-            "dnsNameLabel": "[variables('container1name')]",
+            "dnsNameLabel": "[variables('label')]",
             "ports": [
               {
                 "protocol": "tcp",

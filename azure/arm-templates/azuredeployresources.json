@@ -4,10 +4,6 @@
     "parameters": {
       "apiManagementServiceName": {
         "type": "string"
-      },
-      "resurfaceRules": {
-        "type": "string",
-        "defaultValue": "include default"
       }
     },
     "variables": {
@@ -16,31 +12,28 @@
       {
         "apiVersion": "2021-04-01",        
         "type": "Microsoft.Resources/deployments",
-        "name": "linkedResourcesTemplate",
+        "name": "linkedEventHubsTemplate",
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "relativePath": "azuredeployresources.json"
-          },
-          "parameters": {
-            "apiManagementServiceName": "[parameters('apiManagementServiceName')]"
+            "relativePath": "event-hub.json"
           }
         }
       },
       {
         "apiVersion": "2021-04-01",
         "type": "Microsoft.Resources/deployments",
-        "name": "linkedContainersTemplate",
+        "name": "linkedPolicyLoggerTemplate",
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "relativePath": "container-group.json"
+            "relativePath": "logger-and-policy.json"
           },
           "parameters": {
-            "resurfaceRules": "[parameters('resurfaceRules')]"
+            "apiManagementServiceName": "[parameters('apiManagementServiceName')]"
           }
         },
-        "dependsOn": "[resourceId('Microsoft.Resources/deployments', 'linkedResourcesTemplate')]"
+        "dependsOn": "[resourceId('Microsoft.Resources/deployments', 'linkedEventHubsTemplate')]"
       }
     ],
     "outputs": {
