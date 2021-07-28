@@ -30,10 +30,11 @@
             "relativePath": "logger-and-policy.json"
           },
           "parameters": {
-            "apiManagementServiceName": "[parameters('apiManagementServiceName')]"
+            "apiManagementServiceName": "[parameters('apiManagementServiceName')]",
+            "eventHubsNamespaceName": "[reference('linkedEventHubsTemplate').parameters.eventHubNamespaceName]",
+            "eventHubsInstanceName": "[reference('linkedEventHubsTemplate').parameters.eventHubsInstanceName]"
           }
-        },
-        "dependsOn": "[resourceId('Microsoft.Resources/deployments', 'linkedEventHubsTemplate')]"
+        }
       }
     ],
     "outputs": {

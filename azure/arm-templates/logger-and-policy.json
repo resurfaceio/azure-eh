@@ -12,11 +12,11 @@
           "description": "Identifier for the Azure APIM Logger service"
         }
       },
-      "eventHubNamespaceName": {
+      "eventHubsNamespaceName": {
         "type": "string",
         "defaultValue": "ResurfaceEH"
       },
-      "eventHubInstanceName": {
+      "eventHubsInstanceName": {
         "type": "string",
         "defaultValue": "ResurfaceLoggingEH"
       },
@@ -37,8 +37,8 @@
           "loggerType": "azureEventHub",
           "description": "Resurface Logger",
           "credentials": {
-            "name": "[parameters('eventHubInstanceName')]",
-            "connectionString": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
+            "name": "[parameters('eventHubsInstanceName')]",
+            "connectionString": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubsNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
           }
         }
       },
