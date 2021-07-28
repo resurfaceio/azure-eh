@@ -5,7 +5,7 @@ Easily log API requests and responses to your own [system of record](https://res
 
 * docker
 * docker-compose
-* an Azure subscription might be required in order to use Azure Event Hubs
+* an Azure subscription might be required in order to use Azure Event Hubs and Azure API Management
 
 ## Ports Used
 
