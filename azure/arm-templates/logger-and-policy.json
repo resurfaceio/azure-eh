@@ -14,23 +14,16 @@
       },
       "eventHubsNamespaceName": {
         "type": "string",
-        "defaultValue": "ResurfaceEH"
+        "defaultValue": "ResurfaceEHNamespace"
       },
       "eventHubsInstanceName": {
         "type": "string",
-        "defaultValue": "ResurfaceLoggingEH"
-      },
-      "partitionNumber": {
-        "type": "string",
-        "defaultValue": "0",
-        "metadata": {
-          "description": "EventHubs partition"
-        }
+        "defaultValue": "ResurfaceEventHub"
       }
     },
     "resources": [
       {
-        "apiVersion": "2017-03-01",
+        "apiVersion": "2020-12-01",
         "type": "Microsoft.ApiManagement/service/loggers",
         "name": "[concat(parameters('apiManagementServiceName'),'/',parameters('loggerID'))]",
         "properties": {
@@ -43,7 +36,7 @@
         }
       },
       {
-        "apiVersion": "2019-12-01",
+        "apiVersion": "2020-12-01",
         "type": "Microsoft.ApiManagement/service/policies",
         "name": "[concat(parameters('apiManagementServiceName'),'/policy')]",
         "properties": {

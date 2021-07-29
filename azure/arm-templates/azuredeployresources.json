@@ -23,18 +23,17 @@
       {
         "apiVersion": "2020-10-01",
         "type": "Microsoft.Resources/deployments",
-        "name": "linkedPolicyLoggerTemplate",
+        "name": "linkedLoggerAndPolicyTemplate",
         "properties": {
           "mode": "Incremental",
           "templateLink": {
             "relativePath": "logger-and-policy.json"
           },
           "parameters": {
-            "apiManagementServiceName": "[parameters('apiManagementServiceName')]",
-            "eventHubsNamespaceName": "[reference('linkedEventHubsTemplate').parameters.eventHubNamespaceName]",
-            "eventHubsInstanceName": "[reference('linkedEventHubsTemplate').parameters.eventHubsInstanceName]"
+            "apiManagementServiceName": "[parameters('apiManagementServiceName')]"
           }
-        }
+        },
+        "dependsOn": ["[resourceId('Microsoft.Resources/deployments', 'linkedEventHubsTemplate')]"]
       }
     ],
     "outputs": {

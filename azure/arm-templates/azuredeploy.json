@@ -40,7 +40,7 @@
             "resurfaceRules": "[parameters('resurfaceRules')]"
           }
         },
-        "dependsOn": "[resourceId('Microsoft.Resources/deployments', 'linkedResourcesTemplate')]"
+        "dependsOn": ["[resourceId('Microsoft.Resources/deployments', 'linkedResourcesTemplate')]"]
       }
     ],
     "outputs": {

@@ -4,7 +4,7 @@
     "parameters": {
       "eventHubsNamespaceName": {
         "type": "string",
-        "defaultValue": "ResurfaceEH",
+        "defaultValue": "ResurfaceEHNamespace",
         "metadata": {
           "description": "Name of EventHubs namespace"
         }
@@ -28,7 +28,7 @@
       },
       "eventHubsInstanceName": {
         "type": "string",
-        "defaultValue": "ResurfaceLoggingEH",
+        "defaultValue": "ResurfaceEventHub",
         "metadata": {
           "description": "Name of the EventHubs instance"
         }
