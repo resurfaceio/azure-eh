@@ -20,10 +20,12 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "relativePath": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/azuredeployresources.json"
+            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/azuredeployresources.json"
           },
           "parameters": {
-            "apiManagementServiceName": "[parameters('apiManagementServiceName')]"
+            "apiManagementServiceName": {
+              "value": "[parameters('apiManagementServiceName')]"
+            }
           }
         }
       },
@@ -34,7 +36,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "relativePath": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/container-group.json"
+            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/container-group.json"
           },
           "parameters": {
             "resurfaceRules": {
