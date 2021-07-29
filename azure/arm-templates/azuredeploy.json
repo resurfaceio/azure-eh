@@ -41,6 +41,12 @@
           "parameters": {
             "resurfaceRules": {
               "value": "[parameters('resurfaceRules')]"
+            },
+            "eventHubsNamespaceName": {
+              "value": "ResurfaceEHNamespace"
+            },
+            "eventHubsInstanceName": {
+              "value": "ResurfaceEventHub"
             }
           }
         },
