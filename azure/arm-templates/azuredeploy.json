@@ -37,7 +37,9 @@
             "relativePath": "container-group.json"
           },
           "parameters": {
-            "resurfaceRules": "[parameters('resurfaceRules')]"
+            "resurfaceRules": {
+              "value": "[parameters('resurfaceRules')]"
+            }
           }
         },
         "dependsOn": ["[resourceId('Microsoft.Resources/deployments', 'linkedResourcesTemplate')]"]
