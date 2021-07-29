@@ -14,32 +14,20 @@
     },
     "resources": [
       {
-        "apiVersion": "2021-04-01",
+        "apiVersion": "2021-04-01",        
         "type": "Microsoft.Resources/deployments",
-        "name": "linkedEventHubsTemplate",
+        "name": "linkedResourcesTemplate",
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/event-hub.json"
-          }
-        }
-      },
-      {
-        "apiVersion": "2021-04-01",
-        "type": "Microsoft.Resources/deployments",
-        "name": "linkedLoggerAndPolicyTemplate",
-        "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/logger-and-policy.json"
+            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/azuredeployresources.json"
           },
           "parameters": {
             "apiManagementServiceName": {
               "value": "[parameters('apiManagementServiceName')]"
             }
           }
-        },
-        "dependsOn": ["[resourceId('Microsoft.Resources/deployments', 'linkedEventHubsTemplate')]"]
+        }
       },
       {
         "apiVersion": "2021-04-01",
@@ -56,10 +44,7 @@
             }
           }
         },
-        "dependsOn": [
-          "[resourceId('Microsoft.Resources/deployments', 'linkedEventHubsTemplate')]",
-          "[resourceId('Microsoft.Resources/deployments', 'linkedLoggerAndPolicyTemplate')]"
-        ]
+        "dependsOn": ["[resourceId('Microsoft.Resources/deployments', 'linkedResourcesTemplate')]"]
       }
     ],
     "outputs": {

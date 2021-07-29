@@ -9,10 +9,10 @@
           "description": "Group for Resurface containers."
         }
       },
-      "eventHubNamespaceName": {
+      "eventHubsNamespaceName": {
         "type": "string"
       },
-      "eventHubInstanceName": {
+      "eventHubsInstanceName": {
         "type": "string"
       },
       "partitionNumber": {
@@ -83,7 +83,7 @@
                   },
                   {
                     "name": "AZURE_EH_CONNECTION_STRING",
-                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
+                    "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules',parameters('eventHubsNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
                   },
                   {
                     "name": "PARTITION_NUMBER",
@@ -91,7 +91,7 @@
                   },
                   {
                     "name": "EVENT_HUB_NAME",
-                    "value": "[parameters('eventHubInstanceName')]"
+                    "value": "[parameters('eventHubsInstanceName')]"
                   }
                 ]
               }
