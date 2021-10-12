@@ -10,8 +10,8 @@ services:
       - '4002:4002'
 
   azure-eh:
-    image: azure-eh
-    container_name: listener-azure-eh
+    image: resurfaceio-eventhub-consumer
+    container_name: azure-eh-listener
     env_file:
       - .env
     volumes:
