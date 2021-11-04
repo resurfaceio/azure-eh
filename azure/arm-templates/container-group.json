@@ -22,14 +22,20 @@
       "resurfaceRules": {
         "type": "string",
         "defaultValue": "include default"
+      },
+      "entitlementToken": {
+        "type": "string",
+        "metadata": {
+          "description": "Entitlement token from https://resurface.io/v3-registration"
+        }
       }
     },
     "variables": {
-      "container1name": "resurface",
-      "container1image": "resurfaceio/resurface:2.3.1",
-      "container2name": "slim-azure-eh",
-      "container2image": "monramon/slim-azure-eh:1",
-      "label": "[concat(variables('container1name'), '-' , resourceGroup().name)]"
+      "resurfacecontainer": "resurface",
+      "resurfaceimage": "docker.resurface.io/release/resurface:3.0.17",
+      "ehlistenercontainer": "azure-eh-listener",
+      "ehlistenerimage": "docker.resurface.io/release/azure-eh-listener:1.0.0",
+      "label": "[concat(variables('resurfacecontainer'), '-' , resourceGroup().name)]"
     },
     "resources": [
       {
@@ -38,34 +44,38 @@
         "name": "[parameters('containerGroupName')]",
         "location": "[resourceGroup().location]",
         "properties": {
+          "imageRegistryCredentials": [
+            {
+              "server": "docker.resurface.io",
+              "username": "resurfacelabs/release",
+              "password": "[parameters('entitlementToken')]"
+            }
+          ],
           "containers": [
             {
-              "name": "[variables('container1name')]",
+              "name": "[variables('resurfacecontainer')]",
               "properties": {
-                "image": "[variables('container1image')]",
+                "image": "[variables('resurfaceimage')]",
                 "resources": {
                   "requests": {
-                    "cpu": 1,
-                    "memoryInGb": 1.5
+                    "cpu": 2,
+                    "memoryInGb": 8
                   }
                 },
                 "ports": [
                   {
-                    "port": 4000
+                    "port": 7700
                   },
                   {
-                    "port": 4001
-                  },
-                  {
-                    "port": 4002
+                    "port": 7701
                   }
                 ]
               }
             },
             {
-              "name": "[variables('container2name')]",
+              "name": "[variables('ehlistenercontainer')]",
               "properties": {
-                "image": "[variables('container2image')]",
+                "image": "[variables('ehlistenerimage')]",
                 "resources": {
                   "requests": {
                     "cpu": 1,
@@ -75,7 +85,7 @@
                 "environmentVariables": [
                   {
                     "name": "USAGE_LOGGERS_URL",
-                    "value": "[concat('http://', variables('label'),'.', resourceGroup().location, '.azurecontainer.io:4001/message')]"
+                    "value": "[concat('http://', variables('label'),'.', resourceGroup().location, '.azurecontainer.io:7701/message')]"
                   },
                   {
                     "name": "USAGE_LOGGERS_RULES",
@@ -104,15 +114,11 @@
             "ports": [
               {
                 "protocol": "tcp",
-                "port": 4000
+                "port": 7700
               },
               {
                 "protocol": "tcp",
-                "port": 4001
-              },
-              {
-                "protocol": "tcp",
-                "port": 4002
+                "port": 7701
               }
             ]
           }

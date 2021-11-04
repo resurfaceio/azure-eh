@@ -5,6 +5,12 @@
       "apiManagementServiceName": {
         "type": "string"
       },
+      "entitlementToken": {
+        "type": "string",
+        "metadata": {
+          "description": "Entitlement token from https://resurface.io/v3-registration"
+        }
+      },
       "resurfaceRules": {
         "type": "string",
         "defaultValue": "include default"
@@ -39,6 +45,9 @@
             "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/container-group.json"
           },
           "parameters": {
+            "entitlementToken": {
+              "value": "[parameters('entitlementToken')]"
+            },
             "resurfaceRules": {
               "value": "[parameters('resurfaceRules')]"
             },
