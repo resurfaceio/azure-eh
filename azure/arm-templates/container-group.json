@@ -26,13 +26,13 @@
       "entitlementToken": {
         "type": "string",
         "metadata": {
-          "description": "Entitlement token from https://resurface.io/v3-registration"
+          "description": "Entitlement token from https://resurface.io/installation"
         }
       }
     },
     "variables": {
       "resurfacecontainer": "resurface",
-      "resurfaceimage": "docker.resurface.io/release/resurface:3.0.17",
+      "resurfaceimage": "docker.resurface.io/release/resurface:3.0.34",
       "ehlistenercontainer": "azure-eh-listener",
       "ehlistenerimage": "docker.resurface.io/release/azure-eh-listener:1.0.0",
       "label": "[concat(variables('resurfacecontainer'), '-' , resourceGroup().name)]"

@@ -16,7 +16,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/v3/azure/arm-templates/event-hub.json"
+            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/event-hub.json"
           }
         }
       },
@@ -27,7 +27,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/v3/azure/arm-templates/logger-and-policy.json"
+            "uri": "https://raw.githubusercontent.com/resurfaceio/azure-eh/master/azure/arm-templates/logger-and-policy.json"
           },
           "parameters": {
             "apiManagementServiceName": {

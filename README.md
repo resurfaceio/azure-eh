@@ -16,7 +16,7 @@ Easily log API requests and responses to your own [system of record](https://res
 
 Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fv3%2Fazure%2Farm-templates%2Fcontainer-group.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2Fazure%2Farm-templates%2Fcontainer-group.json)
 
 ## Deploy Locally
 

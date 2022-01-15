@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   resurface:
-    image: docker.resurface.io/release/resurface:3.0.30
+    image: docker.resurface.io/release/resurface:3.0.34
     container_name: resurface-azure
     ports:
       - '7700:7700'
