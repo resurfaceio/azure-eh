@@ -25,11 +25,11 @@ This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/
 
 Once the automatic deployment finishes, go to the **Outputs** section.
 
-![image](https://user-images.githubusercontent.com/7117255/169603018-76e9ec7b-918e-4d47-87a7-253c2e820d08.png)
+<img src="https://user-images.githubusercontent.com/7117255/169603018-76e9ec7b-918e-4d47-87a7-253c2e820d08.png" alt="outputs" width="200"/>
 
 Copy the listed values and update the [required environment variables](#logging-from-azure-event-hubs) accordingly.
 
-![image](https://user-images.githubusercontent.com/7117255/169603987-06605534-2f6d-4841-9a89-bee0d4fdd98c.png)
+<img src="https://user-images.githubusercontent.com/7117255/169603987-06605534-2f6d-4841-9a89-bee0d4fdd98c.png" alt="envvars" width="200"/>
 
 ### Manual setup
 
