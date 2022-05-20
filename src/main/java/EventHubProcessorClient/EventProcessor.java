@@ -1,3 +1,5 @@
+// © 2016-2022 Resurface Labs Inc.
+
 package EventHubProcessorClient;
 
 import Logger.HttpLoggerForAzureEH;
