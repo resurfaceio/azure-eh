@@ -104,7 +104,7 @@ make stop      # halt and remove containers
 
 <a name="run-on-azure"/>
 
-## (Dev/Test) Run Containers to Azure Container Instances
+## (Dev/Test) Run Containers as Azure Container Instances
 
 Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
 
@@ -112,7 +112,7 @@ Click down below to deploy both containers as Azure Container Instances and run 
 
 <a name="run-on-aks"/>
 
-## Run Containers to Azure Kubernetes Service (AKS)
+## Run Containers on Azure Kubernetes Service (AKS)
 
 // Coming soon!
 
