@@ -11,6 +11,8 @@ Easily log API requests and responses to your own [system of record](https://res
 * 7700 - Resurface API Explorer & Trino database UI
 * 7701 - Resurface microservice
 
+<a name="set-up"/>
+
 ## Set Up
 In order to run Resurface for Azure APIM, some previous configuration is needed. Specifically, four resources need to be created and deployed: an [Event Hub](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about), a [Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview), a [Logger](https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/logger/create-or-update), and a [Policy](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies) for your APIM instance.
 
@@ -21,11 +23,19 @@ Click the **Deploy to Azure** button below to deploy all necessary resources usi
 
 This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to create and deploy an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json), and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance.
 
+Once the automatic deployment finishes, go to the **Outputs** section.
+
+![image](https://user-images.githubusercontent.com/7117255/169603018-76e9ec7b-918e-4d47-87a7-253c2e820d08.png)
+
+Copy the listed values and update the [required environment variables](#logging-from-azure-event-hubs) accordingly.
+
+![image](https://user-images.githubusercontent.com/7117255/169603987-06605534-2f6d-4841-9a89-bee0d4fdd98c.png)
+
 ### Manual setup
 
 If you would like to configure everything yourself using the Azure console instead, just follow Resurface's [Capturing from APIM get-started guide](https://resurface.io/azure-get-started#manual-setup), where the entire process is documented in a step-by-step manner.
 
-<a name="logging_from_azure_event_hubs"/>
+<a name="logging-from-azure-event-hubs"/>
 
 ## Streaming data From Azure Event Hubs to Resurface
 
@@ -63,6 +73,8 @@ docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
 - That's it!
 
+<a name="run-locally"/>
+
 ## Deploy Containers Locally
 
 Clone this repository to run the containers as an on-prem solution.
@@ -83,11 +95,15 @@ make logs      # follow container logs
 make stop      # halt and remove containers
 ```
 
+<a name="run-on-azure"/>
+
 ## Deploy Containers to Azure Container Instances
 
 Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fcontainer-group.json)
+
+<a name="run-on-aks"/>
 
 ## Deploy Containers to Azure Kubernetes Service (AKS)
 
