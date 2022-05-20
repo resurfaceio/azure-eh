@@ -60,7 +60,7 @@ Or, if you built the image yourself in the previous step:
 docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
 ```
 
-- Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that the API Calls are being captured.
+- Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
 - That's it!
 
 ## Deploy Containers Locally
