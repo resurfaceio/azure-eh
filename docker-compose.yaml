@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   resurface:
-    image: resurfaceio/resurface:3.1.17
+    image: resurfaceio/resurface:3.1.30
     container_name: resurface
     ports:
       - '7700:7700'
