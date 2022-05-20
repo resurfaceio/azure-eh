@@ -21,7 +21,7 @@ Click the **Deploy to Azure** button below to deploy all necessary resources usi
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fazuredeployresources.json)
 
-This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to create and deploy an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json), and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance.
+This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to create and deploy an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json), and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance (WARNING: this will overwrite any global policies you have in place in your APIM instance. Make sure you back up existing policies!)
 
 Once the automatic deployment finishes, go to the **Outputs** section.
 <details>
