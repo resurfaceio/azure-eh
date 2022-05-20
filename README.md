@@ -4,7 +4,7 @@ Easily log API requests and responses to your own [system of record](https://res
 ## Requirements
 
 * docker
-* an Azure subscription might be required in order to use Azure Event Hubs, Azure Storage, and Azure API Management
+* an Azure subscription might be required in order to use Event Hubs, Storage Blobs, and Azure API Management
 
 ## Ports Used
 
@@ -19,11 +19,11 @@ Click the **Deploy to Azure** button below to deploy all necessary resources usi
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fazuredeployresources.json)
 
-This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to creates and deploys an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json) for checkpointing, and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance.
+This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to create and deploy an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json), and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance.
 
 ### Manual setup
 
-If you still would like to configure everything yourself using the Azure console instead, just follow Resurface's [Capturing from APIM get-started guide](https://resurface.io/azure-get-started#manual-setup), where the entire process is documented in a step-by-step manner.
+If you would like to configure everything yourself using the Azure console instead, just follow Resurface's [Capturing from APIM get-started guide](https://resurface.io/azure-get-started#manual-setup), where the entire process is documented in a step-by-step manner.
 
 <a name="logging_from_azure_event_hubs"/>
 
@@ -43,7 +43,7 @@ If you still would like to configure everything yourself using the Azure console
 |`PARTITION_NUMBER`          |(**Deprecated**) Partition number configured in `policy.xml`. Should be `"0"` by default.|
 
 - Run the container
-- 
+
 ```bash
 docker run -d --name resurface-azure-eh --env-file .env resurfaceio/listener-azure-eh:1.0.0
 ```
