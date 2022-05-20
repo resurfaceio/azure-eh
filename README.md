@@ -24,12 +24,19 @@ Click the **Deploy to Azure** button below to deploy all necessary resources usi
 This uses [a custom template](https://github.com/resurfaceio/iac-templates/blob/master/azure/azuredeployresources.json) to create and deploy an [Event Hubs instance](https://github.com/resurfaceio/iac-templates/blob/master/azure/event-hub.json), a [Storage Account](https://github.com/resurfaceio/iac-templates/blob/master/azure/storageaccount.json), and adds a [Logger and Policy](https://github.com/resurfaceio/iac-templates/blob/master/azure/logger-and-policy.json) to your existing APIM instance.
 
 Once the automatic deployment finishes, go to the **Outputs** section.
-
-<img src="https://user-images.githubusercontent.com/7117255/169603018-76e9ec7b-918e-4d47-87a7-253c2e820d08.png" alt="outputs" width="200"/>
+<details>
+  <summary> Click to expand</summary>
+  
+  ![image](https://user-images.githubusercontent.com/7117255/169603018-76e9ec7b-918e-4d47-87a7-253c2e820d08.png)
+</details>
 
 Copy the listed values and update the [required environment variables](#logging-from-azure-event-hubs) accordingly.
+<details>
+  <summary>Click to expand</summary>
+  
+  ![image](https://user-images.githubusercontent.com/7117255/169605750-911491c0-43b0-4caa-9ccb-911ad723bd1a.png)
+</details>
 
-<img src="https://user-images.githubusercontent.com/7117255/169603987-06605534-2f6d-4841-9a89-bee0d4fdd98c.png" alt="envvars" width="200"/>
 
 ### Manual setup
 
