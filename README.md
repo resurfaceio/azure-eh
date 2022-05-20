@@ -12,28 +12,19 @@ Easily log API requests and responses to your own [system of record](https://res
 * 7700 - Resurface API Explorer & Trino database UI
 * 7701 - Resurface microservice
 
-## Deploy to Azure
+## Set Up
+In order to run Resurface for Azure APIM, some previous configuration is needed.
+Click the **Deploy to Azure** button below to deploy all necessary resources using an [ARM template](https://github.com/resurfaceio/iac-templates/tree/master/azure):
 
-Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fazuredeployresources.json)
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fazure-eh%2Fmaster%2Fazure%2Farm-templates%2Fcontainer-group.json)
-
-## Deploy Locally
-
-Clone this repository to run the containers as an on-prem solution
-
-```
-make start     # rebuild and start containers
-make bash      # open shell session
-make logs      # follow container logs
-make stop      # halt and remove containers
-```
+This creates and deploys an *Event Hubs* instance, a *Storage Account* for checkpointing, and adds a Logger and policy to your existing APIM instance.
 
 <a name="logging_from_azure_event_hubs"/>
 
 ## Logging From Azure Event Hubs
 
-- Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml).
+- Add the Policy expression [`policy.xml`](https://github.com/resurfaceio/azure-eh/blob/master/policy.xml) to your API Management Service as indicated [here](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies). Remember to modify the attributes mentioned in the comment block of [`policy.xml`](https://github.com/resurfaceio/listener-azure-eh/blob/master/policy.xml).
 
 - If you are running the containers locally, you need to set following the environment variables in the [`.env`](https://github.com/resurfaceio/azure-eh/blob/master/.env) file to their corresponding values before doing `make start`:
 
@@ -47,6 +38,25 @@ make stop      # halt and remove containers
 |`USAGE_LOGGERS_RULES`        |(**Optional**) Set of [rules](#protecting-user-privacy).<br />Only necessary if you want to exclude certain API calls from being logged.         |
 
 - Use your API as you always do. Enjoy! 
+
+## Deploy Containers Locally
+
+Clone this repository to run the containers as an on-prem solution
+
+```
+make start     # rebuild and start containers
+make bash      # open shell session
+make logs      # follow container logs
+make stop      # halt and remove containers
+```
+
+## Deploy Containers to Azure
+
+Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fcontainer-group.json)
+
+
 
 <a name="privacy"/>
 
