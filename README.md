@@ -42,11 +42,25 @@ If you would like to configure everything yourself using the Azure console inste
 |`EVENT_HUB_CONSUMER_GROUP`  |(**Optional**) Name of a consumer group from your Event Hub.<br />Only necessary if you have created a specific consumer group for your Event Hub instance|
 |`PARTITION_NUMBER`          |(**Deprecated**) Partition number configured in `policy.xml`. Should be `"0"` by default.|
 
+- (Optional) Build the container image
+
+```bash
+docker build -t listener-azure-eh:1.0.0 .
+```
+
 - Run the container
 
 ```bash
 docker run -d --name resurface-azure-eh --env-file .env resurfaceio/listener-azure-eh:1.0.0
 ```
+
+Or,
+
+```bash
+docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
+```
+
+If you built the image yourself in the previous step.
 
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that the API Calls are being captured.
 - That's it!
