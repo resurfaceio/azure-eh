@@ -7,4 +7,5 @@ RUN ["mvn", "package"]
 
 FROM resurfaceio/alpine-jdk11
 COPY --from=0 /app/target/*.jar ./
-CMD ["java", "-jar", "logger-azure-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-jar"]
+CMD ["logger-azure-1.0-SNAPSHOT.jar"]
