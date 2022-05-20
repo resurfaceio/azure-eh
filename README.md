@@ -80,6 +80,21 @@ docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
 - That's it!
 
+<a name="run-on-aks"/>
+
+## Run Containers on Azure Kubernetes Service (AKS)
+
+Using [Helm](https://helm.sh/) you can deploy this listener application to your running cluster
+
+```bash
+helm upgrade -i resurface resurfaceio/resurface --namespace resurface \
+--set listener.azure.enabled=true \
+--set listener.azure.ehconnstring=YOUR_AZURE_EH_CONNECTION_STRING \
+--set listener.azure.ehname=YOUR_AZURE_EVENT_HUBS_INSTANCE_NAME \
+--set listener.azure.storageconnstring=YOUR_AZURE_STORAGE_CONNECTION_STRING \
+--set listener.azure.storagecontainer=YOUR_AZURE_STORAGE_CONTAINER_NAME
+```
+
 <a name="run-locally"/>
 
 ## (Dev/Test) Run Containers Locally
@@ -109,12 +124,6 @@ make stop      # halt and remove containers
 Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fcontainer-group.json)
-
-<a name="run-on-aks"/>
-
-## Run Containers on Azure Kubernetes Service (AKS)
-
-// Coming soon!
 
 <a name="privacy"/>
 
