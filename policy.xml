@@ -40,7 +40,7 @@
         <forward-request follow-redirects="true" />
     </backend>
     <outbound>
-        <log-to-eventhub logger-id="ResurfaceLogger" partition-id="0">@{
+        <log-to-eventhub logger-id="ResurfaceLogger">@{
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Response.Body?.As<string>(true);
           if (body != null && body.Length > bodySizeLimit)
