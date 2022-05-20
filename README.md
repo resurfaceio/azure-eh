@@ -54,7 +54,11 @@ docker build -t listener-azure-eh:1.0.0 .
 docker run -d --name resurface-azure-eh --env-file .env resurfaceio/listener-azure-eh:1.0.0
 ```
 
-(Or `docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0` if you built the image yourself in the previous step)
+Or, if you built the image yourself in the previous step:
+
+```bash
+docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
+```
 
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that the API Calls are being captured.
 - That's it!
