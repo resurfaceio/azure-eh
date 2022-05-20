@@ -24,6 +24,7 @@ public class EventConsumer {
                 .buildAsyncConsumerClient();
 
         HttpLoggerForAzureEH msgProcessor = new HttpLoggerForAzureEH(loggerURL, loggerEnabled, loggerRules);
+        System.out.printf("Resurface logger enabled: %b%n", msgProcessor.isEnabled());
         consumer.receiveFromPartition(partitionNumber, EventPosition.latest())
                 .subscribe(event -> {
                     msgProcessor.send(event.getData().getBody());

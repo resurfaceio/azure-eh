@@ -24,11 +24,11 @@ public class EventProcessor {
                 .buildAsyncClient();
 
         HttpLoggerForAzureEH msgProcessor = new HttpLoggerForAzureEH(loggerURL, loggerEnabled, loggerRules);
+        System.out.printf("Resurface logger enabled: %b%n", msgProcessor.isEnabled());
         EventProcessorClient eventProcessorClient = new EventProcessorClientBuilder()
                 .connectionString(connectionString, eventHubName)
                 .consumerGroup(consumerGroup == null ? EventHubClientBuilder.DEFAULT_CONSUMER_GROUP_NAME : consumerGroup)
                 .processEvent(eventContext -> {
-                    // System.out.println(new String(eventContext.getEventData().getBody()));
                     msgProcessor.send(eventContext.getEventData().getBody());
                     if (eventContext.getEventData().getSequenceNumber() % 10 == 0) {
                         eventContext.updateCheckpoint();
