@@ -50,9 +50,12 @@ public class HttpLoggerForAzureEH {
         try {
             parseHttp(new String(httpMessage));
             HttpMessage.send(logger, request, response, response_body, request_body);
-            System.out.println("Message sent");
         } catch (JSONException e) {
             System.err.printf("Message not sent due to parsing issue: %s\n", e.getMessage());
         }
+    }
+
+    public boolean isEnabled() {
+        return logger.isEnabled();
     }
 }

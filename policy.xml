@@ -10,11 +10,13 @@
 -->
 <policies>
     <inbound>
+        <set-variable name="body-size-limit" value="@(1024*1024)" />
         <set-variable name="request-string" value="@{
+          var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Request.Body?.As<string>(true);
-          if (body != null && body.Length > 1024)
+          if (body != null && body.Length > bodySizeLimit)
           {
-            body = body.Substring(0, 1024);
+            body = $"{{\"overflowed\": \"{body.Length}\"}}";
           }
           
           var headers = context.Request.Headers
@@ -38,11 +40,12 @@
         <forward-request follow-redirects="true" />
     </backend>
     <outbound>
-        <log-to-eventhub logger-id="ResurfaceLogger" partition-id="0">@{
+        <log-to-eventhub logger-id="ResurfaceLogger">@{
+          var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Response.Body?.As<string>(true);
-          if (body != null && body.Length > 1024)
+          if (body != null && body.Length > bodySizeLimit)
           {
-            body = body.Substring(0, 1024);
+            body = $"{{\"overflowed\": \"{body.Length}\"}}";
           }
 
           var headers = context.Response.Headers
