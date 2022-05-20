@@ -48,7 +48,7 @@ If you would like to configure everything yourself using the Azure console inste
 docker run -d --name resurface-azure-eh --env-file .env resurfaceio/listener-azure-eh:1.0.0
 ```
 
-- Use your API as you always do. Go to the API Explorer of your Resurface instance and verify that the API Calls are being captured.
+- Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that the API Calls are being captured.
 - That's it!
 
 ## Deploy Containers Locally
