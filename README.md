@@ -82,7 +82,7 @@ docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
 
 <a name="run-locally"/>
 
-## Run Containers Locally
+## (Dev/Test) Run Containers Locally
 
 Clone this repository to run the containers as an on-prem solution.
 You will need to [install `docker-compose`](https://docs.docker.com/compose/install/) in addition to the requirements above.
@@ -104,7 +104,7 @@ make stop      # halt and remove containers
 
 <a name="run-on-azure"/>
 
-## Run Containers to Azure Container Instances
+## (Dev/Test) Run Containers to Azure Container Instances
 
 Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
 
