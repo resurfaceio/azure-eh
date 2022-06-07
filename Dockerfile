@@ -5,7 +5,7 @@ COPY pom.xml /app/
 COPY src /app/src
 RUN ["mvn", "package"]
 
-FROM resurfaceio/alpine-jdk11
+FROM resurfaceio/alpine-jdk11:3.15.4e
 COPY --from=0 /app/target/*.jar ./
 ENTRYPOINT ["java", "-jar"]
 CMD ["logger-azure-1.0-SNAPSHOT.jar"]
