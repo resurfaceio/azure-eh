@@ -4,18 +4,17 @@
     This policy definition must be added to your Azure APIM instance, as indicated here: https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies
     For a complete guide on how to log events to Azure Event Hubs using API Management, see here: https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
     
-    The two attributes of the <log-to-eventhub> tag on line 46, inside the <outbound> element down below must be modified to fit your Azure setup:
+    The two attributes of the <log-to-eventhub> tag on line 48, inside the <outbound> element down below must be modified to fit your Azure setup:
     1. For the logger-id attribute, the "ResurfaceLogger" string is a default value that must be replaced for the identifier of your API Management Logger.
        See here for how to create an API Management Logger: https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/logger/create-or-update
     2. (Deprecated. Only for use with EventConsumerClient) For the partition-id attribute, the "0" string must be replaced for the identifier of your Event Hub
        Partition that will receive the events returned from this policy. The default for this attribute is "0".
     
-    The value attribute of the <set-variable name="body-size-limit"> tag on line 16, inside the inbound element down below contains the maximum number of characters
+    The value attribute of the <set-variable name="body-size-limit"> tag on line 18, inside the inbound element down below contains the maximum number of characters
     to be logged for a given set of request and response bodies. It can be modified to log larger body sizes. The default for this attribute is 524288 (roughly, 1MB given 2 bytes/char).
 -->
 <policies>
     <inbound>
-        <set-variable name="start-time" value="@(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())" />
         <set-variable name="body-size-limit" value="@(1024 * 1024 / 2)" />
         <set-variable name="request-string" value="@{
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
@@ -47,8 +46,6 @@
     </backend>
     <outbound>
         <log-to-eventhub logger-id="ResurfaceLogger">@{
-          var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-          var startTime = (long) context.Variables["start-time"];
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Response.Body?.As<string>(true);
           if (body != null && body.Length > bodySizeLimit)
@@ -70,8 +67,8 @@
           return new JObject(
             new JProperty("request", context.Variables["request-string"]),
             new JProperty("response", response.ToString()),
-            new JProperty("interval", now - startTime),
-            new JProperty("now", now)
+            new JProperty("interval", context.Elapsed.TotalMilliseconds),
+            new JProperty("now", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
           ).ToString();
           
      }</log-to-eventhub>
