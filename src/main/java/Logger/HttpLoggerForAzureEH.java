@@ -10,8 +10,9 @@ public class HttpLoggerForAzureEH {
     private final HttpLogger logger;
     private HttpServletRequestImpl request;
     private HttpServletResponseImpl response;
-    private String request_body = "";
-    private String response_body = "";
+    private String request_body, response_body;
+    private long now;
+    private double interval;
 
     public HttpLoggerForAzureEH() {
         logger = new HttpLogger();
@@ -26,13 +27,28 @@ public class HttpLoggerForAzureEH {
     }
 
     private void parseHttp(String httpMessage) throws JSONException {
-        request = new HttpServletRequestImpl();
-        response = new HttpServletResponseImpl();
+        this.request = new HttpServletRequestImpl();
+        this.response = new HttpServletResponseImpl();
+        this.request_body = "";
+        this.response_body = "";
+
         JSONObject jsonMessage = new JSONObject(httpMessage);
 
         JSONObject req = new JSONObject(jsonMessage.getString("request"));
         this.request.setMethod(req.getString("method"));
-        this.request.setRequestURL(req.getString("url"));
+        String[] url = req.getString("url").split("\\?");
+        this.request.setRequestURL(url[0]);
+        if (url.length > 1) {
+            request.setQueryString(url[1]);
+            for (String param : url[1].split("&")) {
+                int sepIdx = param.indexOf('=');
+                if (sepIdx >= 0) {
+                    String key = param.substring(0, sepIdx);
+                    String val = param.length() == sepIdx + 1 ? "" : param.substring(sepIdx + 1);
+                    this.request.addParam(key, val);
+                }
+            }
+        }
         for (Object header : req.getJSONArray("headers")) {
             String[] h = header.toString().split(" ?: ?");
             this.request.addHeader(h[0], h[1]);
@@ -46,12 +62,16 @@ public class HttpLoggerForAzureEH {
             this.response.addHeader(h[0], h[1]);
         }
         this.response_body = res.get("body").toString();
+
+        this.interval = jsonMessage.getDouble("interval");
+        this.now = jsonMessage.getLong("now");
     }
 
     public void send(byte[] httpMessage) {
         try {
             parseHttp(new String(httpMessage));
-            HttpMessage.send(logger, request, response, response_body, request_body);
+            HttpMessage.send(logger, request, response, response_body, request_body, now, interval);
+            System.out.printf("Messages sent: %d%n", logger.getSubmitSuccesses());
         } catch (JSONException e) {
             System.err.printf("Message not sent due to parsing issue: %s\n", e.getMessage());
         }
