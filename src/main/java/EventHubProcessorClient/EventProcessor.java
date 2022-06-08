@@ -14,6 +14,8 @@ public class EventProcessor {
     private static final String consumerGroup = System.getenv("EVENT_HUB_CONSUMER_GROUP");
     private static final String storageConnectionString = System.getenv("AZURE_STORAGE_CONNECTION_STRING");
     private static final String storageContainerName = System.getenv("STORAGE_CONTAINER_NAME");
+    private static final int checkpointFrequency = System.getenv("CHECKPOINT_FREQ") == null ? 10 :
+            Integer.parseInt(System.getenv("CHECKPOINT_FREQ"));
     // Resurface
     private static final String loggerURL = System.getenv("USAGE_LOGGERS_URL");
     private static final String loggerRules = System.getenv("USAGE_LOGGERS_RULES");
@@ -32,7 +34,7 @@ public class EventProcessor {
                 .consumerGroup(consumerGroup == null ? EventHubClientBuilder.DEFAULT_CONSUMER_GROUP_NAME : consumerGroup)
                 .processEvent(eventContext -> {
                     msgProcessor.send(eventContext.getEventData().getBody());
-                    if (eventContext.getEventData().getSequenceNumber() % 10 == 0) {
+                    if (eventContext.getEventData().getSequenceNumber() % checkpointFrequency == 0) {
                         eventContext.updateCheckpoint();
                     }
                 })
