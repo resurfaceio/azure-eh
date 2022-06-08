@@ -2,7 +2,7 @@ PROJECT_NAME=azure-eh
 
 start:
 	@docker stop resurface || true
-	@docker build -t azure-eh-consumer --no-cache .
+	@docker build -t azure-eh-consumer:1.0.0 --no-cache .
 	@docker-compose up --detach
 
 stop:
