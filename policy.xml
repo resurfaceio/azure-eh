@@ -49,6 +49,7 @@
         <log-to-eventhub logger-id="ResurfaceLogger">@{
           var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
           var startTime = (long) context.Variables["start-time"];
+          var interval = now - startTime;
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Response.Body?.As<string>(true);
           if (body != null && body.Length > bodySizeLimit)
@@ -70,7 +71,7 @@
           return new JObject(
             new JProperty("request", context.Variables["request-string"]),
             new JProperty("response", response.ToString()),
-            new JProperty("interval", now - startTime),
+            new JProperty("interval", interval == 0 ? context.Elapsed : interval),
             new JProperty("now", now)
           ).ToString();
           
