@@ -71,7 +71,7 @@
           return new JObject(
             new JProperty("request", context.Variables["request-string"]),
             new JProperty("response", response.ToString()),
-            new JProperty("interval", interval == 0 ? context.Elapsed : interval),
+            new JProperty("interval", interval == 0 ? context.Elapsed.TotalMilliseconds : interval),
             new JProperty("now", now)
           ).ToString();
           
