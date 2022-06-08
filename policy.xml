@@ -15,6 +15,7 @@
 -->
 <policies>
     <inbound>
+        <set-variable name="start-time" value="@(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())" />
         <set-variable name="body-size-limit" value="@(1024 * 1024 / 2)" />
         <set-variable name="request-string" value="@{
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
@@ -46,6 +47,8 @@
     </backend>
     <outbound>
         <log-to-eventhub logger-id="ResurfaceLogger">@{
+          var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+          var startTime = (long) context.Variables["start-time"];
           var bodySizeLimit = (int) context.Variables["body-size-limit"];
           var body = context.Response.Body?.As<string>(true);
           if (body != null && body.Length > bodySizeLimit)
@@ -66,7 +69,9 @@
           
           return new JObject(
             new JProperty("request", context.Variables["request-string"]),
-            new JProperty("response", response.ToString())
+            new JProperty("response", response.ToString()),
+            new JProperty("interval", now - startTime),
+            new JProperty("now", now)
           ).ToString();
           
      }</log-to-eventhub>
