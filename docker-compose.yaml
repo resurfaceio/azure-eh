@@ -2,15 +2,15 @@ version: '3.2'
 
 services:
   resurface:
-    image: resurfaceio/resurface:3.1.30
+    image: resurfaceio/resurface:3.1.35
     container_name: resurface
     ports:
       - '7700:7700'
       - '7701:7701'
 
   azure-eh:
-    image: resurfaceio/azure-eh-listener:1.0.0
-    container_name: azure-eh-listener
+    image: azure-eh-consumer
+    container_name: azure-eh
     env_file:
       - .env
     volumes:
