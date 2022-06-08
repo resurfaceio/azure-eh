@@ -4,7 +4,7 @@ Easily log API requests and responses to your own [system of record](https://res
 ## Requirements
 
 * docker
-* an Azure subscription might be required in order to use Event Hubs, Storage Blobs, and Azure API Management
+* an Azure subscription might be required in order to use Azure Event Hubs, Azure Storage Blobs, and Azure API Management
 
 ## Ports Used
 
@@ -62,23 +62,22 @@ If you would like to configure everything yourself using the Azure console inste
 - (Optional) Build the container image
 
 ```bash
-docker build -t listener-azure-eh:1.0.0 .
+docker build -t azure-eh-consumer .
 ```
 
 - Run the container
 
 ```bash
-docker run -d --name resurface-azure-eh --env-file .env resurfaceio/listener-azure-eh:1.0.0
+docker run -d --name azure-eh --env-file .env resurfaceio/azure-eh-consumer:1.0.0
 ```
 
 Or, if you built the image yourself in the previous step:
 
 ```bash
-docker run -d --name resurface-azure-eh --env-file .env listener-azure-eh:1.0.0
+docker run -d --name azure-eh --env-file .env azure-eh-consumer:1.0.0
 ```
 
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
-- That's it!
 
 <a name="run-on-aks"/>
 
@@ -88,11 +87,11 @@ Using [Helm](https://helm.sh/) you can deploy this listener application to your 
 
 ```bash
 helm upgrade -i resurface resurfaceio/resurface --namespace resurface \
---set listener.azure.enabled=true \
---set listener.azure.ehconnstring=YOUR_AZURE_EH_CONNECTION_STRING \
---set listener.azure.ehname=YOUR_AZURE_EVENT_HUBS_INSTANCE_NAME \
---set listener.azure.storageconnstring=YOUR_AZURE_STORAGE_CONNECTION_STRING \
---set listener.azure.storagecontainer=YOUR_AZURE_STORAGE_CONTAINER_NAME
+--set consumer.azure.enabled=true \
+--set consumer.azure.ehconnstring=YOUR_AZURE_EH_CONNECTION_STRING \
+--set consumer.azure.ehname=YOUR_AZURE_EVENT_HUBS_INSTANCE_NAME \
+--set consumer.azure.storageconnstring=YOUR_AZURE_STORAGE_CONNECTION_STRING \
+--set consumer.azure.storagecontainer=YOUR_AZURE_STORAGE_CONTAINER_NAME
 ```
 
 <a name="run-locally"/>
@@ -100,7 +99,7 @@ helm upgrade -i resurface resurfaceio/resurface --namespace resurface \
 ## (Dev/Test) Run Containers Locally
 
 Clone this repository to run the containers as an on-prem solution.
-You will need to [install `docker-compose`](https://docs.docker.com/compose/install/) in addition to the requirements above.
+You will need to [install `docker-compose`](https://docs.docker.com/compose/install/) in addition to the requirements listed above.
 
 ```bash
 git clone https://github.com/resurfaceio/azure-eh.git
