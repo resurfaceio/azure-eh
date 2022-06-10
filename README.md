@@ -62,19 +62,19 @@ If you would like to configure everything yourself using the Azure console inste
 - (Optional) Build the container image
 
 ```bash
-docker build -t azure-eh-consumer .
+docker build -t azure-eh-consumer:1.0.1 .
 ```
 
 - Run the container
 
 ```bash
-docker run -d --name azure-eh --env-file .env resurfaceio/azure-eh-consumer:1.0.0
+docker run -d --name azure-eh --env-file .env resurfaceio/azure-eh-consumer:1.0.1
 ```
 
 Or, if you built the image yourself in the previous step:
 
 ```bash
-docker run -d --name azure-eh --env-file .env azure-eh-consumer:1.0.0
+docker run -d --name azure-eh --env-file .env azure-eh-consumer:1.0.1
 ```
 
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
