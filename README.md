@@ -1,5 +1,5 @@
 # resurfaceio-azure-eh
-Easily log API requests and responses to your own [system of record](https://resurface.io/).
+Easily capture entire API requests and responses to your own [data lake](https://resurface.io/).
 
 ## Requirements
 
