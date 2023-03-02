@@ -1,5 +1,5 @@
 <!--
-    © 2016-2022 Resurface Labs Inc.
+    © 2016-2023 Resurface Labs Inc.
 
     This policy definition must be added to your Azure APIM instance, as indicated here: https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies
     For a complete guide on how to log events to Azure Event Hubs using API Management, see here: https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
