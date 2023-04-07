@@ -4,19 +4,14 @@ Easily log API requests and responses to your own <a href="https://resurface.io"
 [![License](https://img.shields.io/github/license/resurfaceio/azure-eh)](https://github.com/resurfaceio/azure-eh/blob/master/LICENSE)
 [![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/azure-eh/blob/master/CONTRIBUTING.md)
 
-## Requirements
+## Contents
 
-* docker
-* an Azure subscription might be required in order to use Azure Event Hubs, Azure Storage Blobs, and Azure API Management
+- [Deployment](#deployment)
+- [Configuration](#configuration)
+- [Running on AKS](#running-on-aks)
+- [Protecting User Privacy](#protecting-user-privacy)
 
-## Ports Used
-
-* 7700 - Resurface API Explorer & Trino database UI
-* 7701 - Resurface microservice
-
-<a name="set-up"/>
-
-## Set Up
+## Deployment
 In order to run Resurface for Azure APIM, some previous configuration is needed. Specifically, four resources need to be created and deployed: an [Event Hub](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about), a [Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview), a [Logger](https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/logger/create-or-update), and a [Policy](https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies) for your APIM instance.
 
 ### Automatic deployment
@@ -40,14 +35,11 @@ Copy the listed values and update the [required environment variables](#logging-
   ![image](https://user-images.githubusercontent.com/7117255/169605750-911491c0-43b0-4caa-9ccb-911ad723bd1a.png)
 </details>
 
-
 ### Manual setup
 
 If you would like to configure everything yourself using the Azure console instead, just follow Resurface's [Capturing from APIM get-started guide](https://resurface.io/azure-get-started#manual-setup), where the entire process is documented in a step-by-step manner.
 
-<a name="logging-from-azure-event-hubs"/>
-
-## Streaming data From Azure Event Hubs to Resurface
+## Configuration
 
 - Set following the environment variables in your `.env` file:
 
@@ -82,9 +74,7 @@ docker run -d --name azure-eh --env-file .env azure-eh-consumer:1.0.1
 
 - Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
 
-<a name="run-on-aks"/>
-
-## Run Containers on Azure Kubernetes Service (AKS)
+## Running on AKS
 
 Using [Helm](https://helm.sh/) you can deploy this listener application to your running cluster
 
@@ -96,38 +86,6 @@ helm upgrade -i resurface resurfaceio/resurface --namespace resurface \
 --set consumer.azure.storageconnstring=YOUR_AZURE_STORAGE_CONNECTION_STRING \
 --set consumer.azure.storagecontainer=YOUR_AZURE_STORAGE_CONTAINER_NAME
 ```
-
-<a name="run-locally"/>
-
-## (Dev/Test) Run Containers Locally
-
-Clone this repository to run the containers as an on-prem solution.
-You will need to [install `docker-compose`](https://docs.docker.com/compose/install/) in addition to the requirements listed above.
-
-```bash
-git clone https://github.com/resurfaceio/azure-eh.git
-cd azure-eh
-make start
-```
-
-Additional commands:
-
-```bash
-make start     # rebuild and start containers
-make bash      # open shell session
-make logs      # follow container logs
-make stop      # halt and remove containers
-```
-
-<a name="run-on-azure"/>
-
-## (Dev/Test) Run Containers as Azure Container Instances
-
-Click down below to deploy both containers as Azure Container Instances and run them as a cloud-based solution
-
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fresurfaceio%2Fiac-templates%2Fmaster%2Fazure%2Fcontainer-group.json)
-
-<a name="privacy"/>
 
 ## Protecting User Privacy
 
