@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // © 2016-2023 Resurface Labs Inc.
+=======
+// © 2016-2023 Graylog, Inc.
+>>>>>>> df9a82b (Update copyright)
 
 package EventHubConsumerClient;
 
