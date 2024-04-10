@@ -1,5 +1,5 @@
-# resurfaceio-azure-eh
-Easily log API requests and responses to your own <a href="https://resurface.io">security data lake</a>.
+# azure-eh
+Capture API calls directly from Azure API Management to your own <a href="https://resurface.io">security data lake</a>.
 
 [![License](https://img.shields.io/github/license/resurfaceio/azure-eh)](https://github.com/resurfaceio/azure-eh/blob/master/LICENSE)
 [![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/azure-eh/blob/master/CONTRIBUTING.md)
@@ -75,7 +75,8 @@ Or, if you built the image yourself in the previous step:
 docker run -d --name azure-eh --env-file .env azure-eh-consumer:1.0.1
 ```
 
-- Use your API as you always do. Go to the [API Explorer](https://resurface.io/docs#api-explorer) of your Resurface instance and verify that API Calls are being captured.
+- Use your API as you always do.
+- Go to the web UI for your Graylog API Security instance and verify that API Calls are being captured.
 
 ## Running on AKS
 
