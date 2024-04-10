@@ -1,5 +1,5 @@
 # azure-eh
-Capture API calls directly from Azure API Management to your own <a href="https://resurface.io">security data lake</a>.
+Capture API calls from Azure API Management to your own <a href="https://resurface.io">security data lake</a> using Azure Event Hubs.
 
 [![License](https://img.shields.io/github/license/resurfaceio/azure-eh)](https://github.com/resurfaceio/azure-eh/blob/master/LICENSE)
 [![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/resurfaceio/azure-eh/blob/master/CONTRIBUTING.md)
