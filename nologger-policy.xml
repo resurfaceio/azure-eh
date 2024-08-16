@@ -1,0 +1,86 @@
+<!--
+    © 2016-2024 Graylog, Inc.
+
+    This policy definition must be added to your Azure APIM instance, as indicated here: https://docs.microsoft.com/en-us/azure/api-management/set-edit-policies
+    For a complete guide on how to log events to Azure Event Hubs using API Management, see here: https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs
+    
+    The two attributes of the <log-to-eventhub> tag on line 48, inside the <outbound> element down below must be modified to fit your Azure setup:
+    1. For the logger-id attribute, the "ResurfaceLogger" string is a default value that must be replaced for the identifier of your API Management Logger.
+       See here for how to create an API Management Logger: https://docs.microsoft.com/en-us/rest/api/apimanagement/current-ga/logger/create-or-update
+    2. (Deprecated. Only for use with EventConsumerClient) For the partition-id attribute, the "0" string must be replaced for the identifier of your Event Hub
+       Partition that will receive the events returned from this policy. The default for this attribute is "0".
+    
+    The value attribute of the <set-variable name="body-size-limit"> tag on line 18, inside the inbound element down below contains the maximum number of characters
+    to be logged for a given set of request and response bodies. It can be modified to log larger body sizes. The default for this attribute is 524288 (roughly, 1MB given 2 bytes/char).
+-->
+<policies>
+    <inbound>
+        <set-variable name="body-size-limit" value="@(1024 * 1024 / 2)" />
+        <set-variable name="request-string" value="@{
+          var bodySizeLimit = (int) context.Variables["body-size-limit"];
+          var body = context.Request.Body?.As<string>(true);
+          if (body != null && body.Length > bodySizeLimit)
+          {
+            body = $"{{\"overflowed\": \"{body.Length}\"}}";
+          }
+          
+          var headers = context.Request.Headers
+                                          .Where(h => h.Key != "Authorization" && h.Key != "Ocp-Apim-Subscription-Key")
+                                          .Select(h => string.Format("{0}: {1}", h.Key, String.Join(",", h.Value)))
+                                          .ToList<string>();
+          
+          if (!context.Request.Headers.ContainsKey("X-FORWARDED-FOR"))
+          {
+            headers.Add(string.Format("X-FORWARDED-FOR: {0}", context.Request.IpAddress));
+          }
+
+          return new JObject(
+                new JProperty("method", context.Request.Method),
+                new JProperty("url", context.Request.Url.ToString()),
+                new JProperty("headers", new JArray(headers)),
+                new JProperty("body", body is null ? string.Empty : body)
+          ).ToString();
+        }" />
+    </inbound>
+    <backend>
+        <forward-request follow-redirects="true" />
+    </backend>
+    <outbound>
+        <send-one-way-request mode="new">
+            <set-url>http://testapp.f9f9hve7bmhnajgv.eastus.azurecontainer.io:8000/message</set-url>
+            <set-method>POST</set-method>
+            <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>@{
+                var bodySizeLimit = (int) context.Variables["body-size-limit"];
+                var body = context.Response.Body?.As<string>(true);
+                if (body != null && body.Length > bodySizeLimit)
+                {
+                    body = $"{{\"overflowed\": \"{body.Length}\"}}";
+                }
+
+                var headers = context.Response.Headers
+                                            .Select(h => string.Format("{0}: {1}", h.Key, String.Join(",", h.Value)))
+                                            .ToArray<string>();
+
+                var request = JObject.Parse((string) context.Variables["request-string"]);
+                
+                return new JArray(
+                    new List<JArray>{
+                        new JArray("request_method", request["method"]),
+                        new JArray("request_url", request["url"]),
+                        //new JArray("request_headers", request["headers"]),
+                        new JArray("request_body", request["body"]),
+                        new JArray("response_code", context.Response.StatusCode),
+                        //new JArray("response_headers", new JArray(headers)),
+                        new JArray("response_body", body),
+                        new JArray("now", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()),
+                        new JArray("interval", context.Elapsed.TotalMilliseconds)
+                  }
+                ).ToString();
+            }</set-body>
+        </send-one-way-request>
+    </outbound>
+    <on-error />
+</policies>
