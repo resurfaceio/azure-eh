@@ -5,6 +5,7 @@ package Logger;
 import io.resurface.*;
 import org.json.*;
 
+import java.util.function.Consumer;
 
 public class HttpLoggerForAzureEH {
     private final HttpLogger logger;
@@ -68,12 +69,16 @@ public class HttpLoggerForAzureEH {
     }
 
     public void send(byte[] httpMessage) {
+        send(httpMessage, System.out::println, System.err::println);
+    }
+
+    public void send(byte[] httpMessage, Consumer<String> log, Consumer<String> error) {
         try {
             parseHttp(new String(httpMessage));
             HttpMessage.send(logger, request, response, response_body, request_body, now, interval);
-            System.out.printf("Messages sent: %d%n", logger.getSubmitSuccesses());
+            log.accept(String.format("Message added to queue. Messages sent: %d", logger.getSubmitSuccesses()));
         } catch (JSONException e) {
-            System.err.printf("Message not sent due to parsing issue: %s\n", e.getMessage());
+            error.accept(String.format("Message NOT SENT due to parsing issue: %s", e.getMessage()));
         }
     }
 
